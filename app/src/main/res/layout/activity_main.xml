@@ -10,7 +10,6 @@
         android:id="@+id/timeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/applesdgothicneoul"
         android:text="@string/time_default"
         android:textSize="110sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,7 +23,7 @@
         android:id="@+id/tickTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/applesdgothicneoul"
+        android:layout_marginStart="10dp"
         android:text="@string/tick_default"
         android:textSize="40sp"
         app:layout_constraintBaseline_toBaselineOf="@id/timeTextView"
@@ -95,7 +94,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:fontFamily="@font/applesdgothicneom"
         android:text="@string/countdown_default"
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/countdownProgressBar"
@@ -153,5 +151,11 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/countdownGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="countdownTitleTextView, countdownTextView,countdownUnitTextView, countdownProgressBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
