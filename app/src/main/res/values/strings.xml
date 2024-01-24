@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">stopwatch</string>
+    <string name="time_default">00:00</string>
+    <string name="tick_default">0</string>
+    <string name="countdown_default">0</string>
+    <string name="set_countdown">카운트다운 설정</string>
+    <string name="unit_sec">초</string>
+</resources>
