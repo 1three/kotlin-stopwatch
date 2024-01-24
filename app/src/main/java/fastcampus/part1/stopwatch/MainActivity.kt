@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.core.view.setPadding
 import fastcampus.part1.stopwatch.databinding.ActivityMainBinding
@@ -158,6 +159,7 @@ class MainActivity : AppCompatActivity() {
         if (currentDesiSecond == 0) return
         val container = binding.lapTimeContainer
         TextView(this).apply {
+            // typeface = resources.getFont(R.font.applesdgothicneoul)
             textSize = 20f
             gravity = Gravity.CENTER
             val count = container.childCount + 1
