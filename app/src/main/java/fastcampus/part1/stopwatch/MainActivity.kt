@@ -1,9 +1,14 @@
 package fastcampus.part1.stopwatch
 
+import android.media.AudioManager
+import android.media.ToneGenerator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
+import androidx.core.view.setPadding
 import fastcampus.part1.stopwatch.databinding.ActivityMainBinding
 import fastcampus.part1.stopwatch.databinding.DialogCountdownSettingBinding
 import java.util.Timer
@@ -120,6 +125,13 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
+            // countdown 3초 전 알림음
+            if (currentDesiSecond == 0 && currentCountdownDeciSecond < 31 && currentCountdownDeciSecond % 10 == 0) {
+                val toneType = if(currentCountdownDeciSecond == 0) ToneGenerator.TONE_CDMA_ABBR_ALERT else ToneGenerator.TONE_CDMA_ANSWER
+                ToneGenerator(AudioManager.STREAM_ALARM, ToneGenerator.MAX_VOLUME)
+                    .startTone(toneType, 100)
+            }
+
             // Worder Thread는 UI 접근 불가
             // binding.timeTextView.text = String.format("%02d:%02d", minutes, seconds)
             // binding.tickTextView.text = deciSeconds.toString()
@@ -131,9 +143,10 @@ class MainActivity : AppCompatActivity() {
         binding.timeTextView.text = "00:00"
         binding.tickTextView.text = "0"
 
-        // countdown
+        // countdown init
         binding.countdownGroup.isVisible = true
         initCountdownViews()
+        binding.lapTimeContainer.removeAllViews()
     }
 
     private fun pause() {
@@ -142,7 +155,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun lapTime() {
-
+        if (currentDesiSecond == 0) return
+        val container = binding.lapTimeContainer
+        TextView(this).apply {
+            textSize = 20f
+            gravity = Gravity.CENTER
+            val count = container.childCount + 1
+            val minutes = currentDesiSecond / 10 / 60
+            val seconds = currentDesiSecond / 10 % 60
+            val deciSeconds = currentDesiSecond % 10
+            val time = String.format("%02d:%02d %01d", minutes, seconds, deciSeconds)
+            text = "$count $time"
+            setPadding(30)
+        }.let { lapTextView ->
+            container.addView(lapTextView, 0)
+        }
     }
 
     private fun showAlertDialog() {
